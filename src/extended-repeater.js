@@ -3,32 +3,32 @@ const CustomError = require("../extensions/custom-error");
 module.exports = function repeater( str, options ) {
   // throw new CustomError('Not implemented');
   // remove line with error and write your code here
+  let repeat = 1;
+  if (options.repeatTimes !== undefined)  repeat = options.repeatTimes;
+  let separator = "+";
+  if (options.separator !== undefined) separator = options.separator;
+  let addition = "";
+  if (options.addition !== undefined) addition = options.addition;
+  let addRepeat = 1;
+  if (options.additionRepeatTimes !== undefined)
+  addRepeat = options.additionRepeatTimes;
+  let addSeparator = "|";
+  if (options.additionSeparator !== undefined) addSeparator = options.additionSeparator;
+//  погнали
   let string = String(str);
-  let repeat = (options.repeatTimes) ? options.repeatTimes : 1;
-  let addRepeat = (options.additionRepeatTimes) ? options.additionRepeatTimes : 1;
-  let addition = (options.addition) ? String(options.addition) : "";
-  let separator = (options.separator) ? options.separator : "+";
-  let addSeparator = (options.additionSeparator) ? options.additionSeparator : "|";
   let result = "" ;
-  let res = "";
-
-  // погнали
-
-  for ( let i = 0; i < repeat; i++) {
-    for ( let j = 0; j < addRepeat; j++) {
-      if (options.additionSeparator) {
-        res += addition + addSeparator;
+   if (repeat > 0) {
+    for ( let i = 0; i < repeat; i++){
+      result += string
+      for ( let j = 0; j < addRepeat; j++){
+        result += addition
+        if(j < addRepeat - 1) result += addSeparator
       }
-      else res = addition;
-    };
-    if ( addSeparator != "|") {
-    res = res.slice(0,res.length - addSeparator.length);
+      if(i < repeat -1 ) result += separator
     }
-      result +=string + res + separator;
 
 
+  }
 
-}
-result = result.slice(0,result.length - separator.length);
 return result;
 }
